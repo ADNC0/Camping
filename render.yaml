@@ -22,6 +22,7 @@ services:
         value: camping-dfae.onrender.com
 
 
+#DATABASE_URL=postgresql://dbrecuperacion_vfju_user:tGSw9VRX99qjkYkj0onGOmS0h9KYmi4R@dpg-cu084nhu0jms73ct6rg0-a.oregon-postgres.render.com/dbrecuperacion_vfju
 
 
 
