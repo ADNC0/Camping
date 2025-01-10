@@ -32,7 +32,8 @@ DEBUG = True
 
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['camping-dfae.onrender.com']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'camping-dfae.onrender.com').split(',')
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'camping-dfae.onrender.com']
 
 
 # Application definition
