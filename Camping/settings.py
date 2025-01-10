@@ -31,13 +31,8 @@ SECRET_KEY = 'django-insecure-#0%1dubg+j(*&l(p#7r-kl131fl+exqqeuf5_k$%e+b&)sv=&5
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-import os
+ALLOWED_HOSTS = ['camping-dfae.onrender.com', '127.0.0.1']
 
-# Obtener el valor de la variable de entorno, si está configurada.
-allowed_hosts_env = os.getenv('ALLOWED_HOSTS', 'camping-dfae.onrender.com')
-
-# Dividir los hosts por comas en caso de múltiples dominios
-ALLOWED_HOSTS = allowed_hosts_env.split(',')
 
 # Application definition
 
