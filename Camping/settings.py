@@ -130,16 +130,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
+
 STATIC_URL = '/static/'
 
-# Si estás en producción, los archivos estáticos se recopilan en este directorio
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'Camping/static')]
+
+# VALIDACION
+if not DEBUG:
+    STATICFILES_ROOT = os.path.join(BASE_DIR,'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Carpeta donde se recopilan los archivos estáticos cuando ejecutas 'collectstatic'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Directorios adicionales donde Django buscará archivos estáticos
+# Directorios adicionales donde Django buscará archivos estáticos durante el desarrollo
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Camping/static'),  # Asegúrate de que esta ruta sea correcta
 ]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
