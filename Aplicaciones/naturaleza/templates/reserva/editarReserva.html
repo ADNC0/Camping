@@ -1,0 +1,56 @@
+{% extends "plantilla.html" %}
+
+{% block body %}
+<h1>EDITAR RESERVA</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'procesoActualizarReserva' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ reservaEditar.id }}">
+
+                <label for="campista"><b>Campista:</b></label>
+                <select name="campista" class="form-control" id="campista">
+                    {% for campista in campistas %}
+                        <option value="{{ campista.id }}" {% if reservaEditar.campista.id == campista.id %}selected{% endif %}>
+                            {{ campista.nombre_completo }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <label for="fecha_inicio"><b>Fecha de Inicio:</b></label>
+                <input type="date" name="fecha_inicio" class="form-control" value="{{ reservaEditar.fecha_inicio|date:"Y-m-d" }}" id="fecha_inicio">
+
+                <label for="fecha_fin"><b>Fecha de Fin:</b></label>
+                <input type="date" name="fecha_fin" class="form-control" value="{{ reservaEditar.fecha_fin|date:"Y-m-d" }}" id="fecha_fin">
+
+                <label for="tipo_alojamiento"><b>Tipo de Alojamiento:</b></label>
+                <select name="tipo_alojamiento" class="form-control" id="tipo_alojamiento">
+                    <option value="Tienda" {% if reservaEditar.tipo_alojamiento == "Tienda" %}selected{% endif %}>Tienda</option>
+                    <option value="Cabaña" {% if reservaEditar.tipo_alojamiento == "Cabaña" %}selected{% endif %}>Cabaña</option>
+                    <option value="Caravana" {% if reservaEditar.tipo_alojamiento == "Caravana" %}selected{% endif %}>Caravana</option>
+                </select>
+
+                <label for="numero_personas"><b>Número de Personas:</b></label>
+                <input type="number" name="numero_personas" class="form-control" value="{{ reservaEditar.numero_personas }}" id="numero_personas">
+
+                <label for="estado_reserva"><b>Estado de la Reserva:</b></label>
+                <select name="estado_reserva" class="form-control" id="estado_reserva">
+                    <option value="Confirmada" {% if reservaEditar.estado_reserva == "Confirmada" %}selected{% endif %}>Confirmada</option>
+                    <option value="Pendiente" {% if reservaEditar.estado_reserva == "Pendiente" %}selected{% endif %}>Pendiente</option>
+                    <option value="Cancelada" {% if reservaEditar.estado_reserva == "Cancelada" %}selected{% endif %}>Cancelada</option>
+                </select>
+
+                <label for="observaciones"><b>Observaciones:</b></label>
+                <textarea name="observaciones" class="form-control" id="observaciones" rows="3" placeholder="Ingrese las observaciones de la reserva">{{ reservaEditar.observaciones }}</textarea>
+
+                <br>
+                <button type="submit" class="btn btn-warning">Actualizar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'listado_reservas' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

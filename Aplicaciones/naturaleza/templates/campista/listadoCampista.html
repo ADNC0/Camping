@@ -1,0 +1,88 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<br>
+{% if messages %}
+    <div class="alert-container">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Campistas</b></h3>
+    </div>
+</div>
+<br>
+<div style="text-align: center;">
+    <a href="{% url 'nuevaCampista' %}" class="btn btn-success">Agregar Campista</a>
+</div>
+<table class="table table-bordered table-striped table-hover text-center" id="tbl-campistas">
+    <thead>
+        <tr>
+            <th style="color: green;">ID</th>
+            <th style="color: green;">Nombre Completo</th>
+            <th style="color: green;">Correo Electrónico</th>
+            <th style="color: green;">Teléfono</th>
+            <th style="color: green;">Dirección</th>
+            <th style="color: green;">Fecha de Registro</th>
+            <th style="color: green;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campista in campistas %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ campista.nombre_completo }}</td>
+            <td>{{ campista.correo_electronico }}</td>
+            <td>{{ campista.telefono }}</td>
+            <td>{{ campista.direccion }}</td>
+            <td>{{ campista.fecha_registro }}</td>
+            <td>
+                <a href="{% url 'editarCampista' campista.id %}" class="btn btn-warning">Editar</a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setDeleteFormAction('{{ campista.id }}')">Eliminar</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Modal de confirmación de eliminación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="confirmDeleteLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este campista? Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" method="POST" action="">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para configurar la acción del formulario de eliminación
+    function setDeleteFormAction(campistaId) {
+        const form = document.getElementById('deleteForm');
+        form.action = `/eliminarCampista/${campistaId}/`; // Cambia esta ruta según tu vista de eliminación
+    }
+
+    // Inicializar DataTable
+    $(document).ready(function() {
+        $('#tbl-campistas').DataTable();
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+
+{% block body %}
+  <!-- Mostrar mensajes de alerta -->
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Hero Section -->
+  <div class="hero text-center py-5" style="background-image: url('https://i.pinimg.com/550x/a5/98/ea/a598eaeed1b59371fcc7537efe7a9a8d.jpg'); background-size: cover; background-position: center; color: white; height: 40vh; display: flex; justify-content: center; align-items: center; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
+    <div>
+      <h1 style="font-family: 'Georgia', serif; font-size: 4rem; font-weight: bold; margin-bottom: 1rem;">BIENVENIDOS</h1>
+      <p style="font-family: 'Georgia', serif; font-size: 1.5rem; font-weight: bold;">Organiza tus aventuras al aire libre de manera eficiente y divertida.</p>
+    </div>
+  </div>
+  
+  <hr style="border: none; height: 20px; background: linear-gradient(to right, green, purple, lightgreen, orange, skyblue, pink, brown, yellow);">
+
+  <div class="row">
+    <div class="col-md-4" style="background-color: rgba(198, 229, 238, 0.7); padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; height: 80vh;">
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; height: 100%;">
+        <img src="https://aspros.com.ec/wp-content/uploads/783x528_04_blogDic.png" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 1">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2aiqBvA7exqXyk6_GpB56sc3BKvWcW5xWf8Xbe6s0OB6P33VetOEOKAO7zpvS0unorcrTY6PY9Li_N3M-OJ_VYFVqiZNxqlWqEPVSD_qzu4l9BbN4g4rAHZmuwzsfpOdQx6al1K5tMBid/s1600/Lugares+turisticos+de+Ecuador.jpg" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 2">
+        <img src="https://img.goraymi.com/2021/01/21/d6a8652f1c0cf0847a1efdb01c50aeb7_xl.jpg" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 3">
+        <img src="https://delamazonas.com/wp-content/uploads/2019/10/Napo_Wildlife_Center_Ecolodge.jpg.webp" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 4">
+      </div>
+    </div>
+    
+    <div class="col-md-4" style="display: flex; justify-content: center; align-items: center; padding: 20px;">
+      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://www.dynatrap.com/media/wysiwyg/Articles/DynaTrap/DT_setting-up-your-campsite-to-avoid-mosquitoes.jpg" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Campsite Setup">
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.lavanguardia.com/files/image_449_220/files/fp/uploads/2021/05/17/60a25dc54327d.r_d.1923-1082-1168.jpeg" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Camping Landscape">
+          </div>
+          <div class="carousel-item">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/18/a2/8d/cabana-matrimonial.jpg?w=700&h=-1&s=1" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Cabin for Two">
+          </div>
+          <div class="carousel-item">
+            <img src="https://titan.vtexassets.com/arquivos/ids/374789/345280-1600-auto-Photoroom-1-.jpg?v=638718811815530000" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Camping Tent">
+          </div>
+          <div class="carousel-item">
+            <img src="https://concepto.de/wp-content/uploads/2023/01/cordillera-de-los-andes.jpg" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Andes Mountain Range">
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.lahora.com.ec/wp-content/uploads/2021/12/atacames-1-e1640749387348.jpg" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Atacames Beach">
+          </div>
+          <div class="carousel-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLeHg8Y1pNHGCACZD8ZRGryBajn307NfSdOg&s" class="d-block w-100" style="width: 300px; height: 200px; margin: 0 auto;" alt="Scenic View">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="col-md-4" style="background-color: rgba(141, 209, 141, 0.7); padding: 20px; display: flex; align-items: center; justify-content: center; height: 80vh;">
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; height: 100%;">
+        <img src="https://www.turismo.gob.ec/wp-content/uploads/2021/05/Captura-de-pantalla-2021-05-12-a-las-11.12.27.png" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 1">
+        <img src="https://lh4.googleusercontent.com/proxy/Ud1G8xyNiU94Ag7UjcAlZH312StzuXR3VuYRl7DxiRHVTb3rfX2V5KJV53HppKzBfHJ5Qy-FP4c4YMWULKoE6inqrrUwqfVOnOMM4qL4D2HJQmPOL6HfzNSZzQ" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 2">
+        <img src="https://enviajes.cl/wp-content/uploads/2022/02/Ecuador-lugares-Mitad-del-Mundo-Enviajes.jpg" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 3">
+        <img src="https://www.casagangotena.com/wp-content/uploads/2023/09/casa-gangotena-santa-fe.webp" class="d-block w-100" style="border-radius: 8px; height: 150px; object-fit: cover;" alt="Imagen 4">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "plantilla.html" %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Nueva Reserva</h2>
+            <form action="{% url 'guardarReserva' %}" method="post" id="frm_nueva_reserva">
+                {% csrf_token %}
+                
+                <label for="campista">Campista:</label>
+                <select name="campista" class="form-control" id="campista" required>
+                    <option value="">Seleccione un campista</option>
+                    {% for campista in campistas %}
+                        <option value="{{ campista.id }}">{{ campista.nombre_completo }}</option>
+                    {% endfor %}
+                </select>
+                <span id="campistaError" style="color: red;"></span>
+                
+                <label for="fecha_inicio">Fecha de inicio:</label>
+                <input type="date" name="fecha_inicio" class="form-control" id="fecha_inicio" required>
+                <span id="fechaInicioError" style="color: red;"></span>
+                
+                <label for="fecha_fin">Fecha de fin:</label>
+                <input type="date" name="fecha_fin" class="form-control" id="fecha_fin" required>
+                <span id="fechaFinError" style="color: red;"></span>
+                
+                <label for="tipo_alojamiento">Tipo de alojamiento:</label>
+                <select name="tipo_alojamiento" class="form-control" id="tipo_alojamiento" required>
+                    <option value="Seleccione">--SELECCIONE UNA OPCIÓN--</option>
+                    <option value="Tienda">Tienda</option>
+                    <option value="Cabaña">Cabaña</option>
+                    <option value="Caravana">Caravana</option>
+                </select>
+                
+                <label for="numero_personas">Número de personas:</label>
+                <input type="number" name="numero_personas" class="form-control" id="numero_personas" min="1" required>
+                <span id="numeroPersonasError" style="color: red;"></span>
+                
+                <label for="estado_reserva">Estado de reserva:</label>
+                <select name="estado_reserva" class="form-control" id="estado_reserva" required>
+                    <option value="Seleccione">--SELECCIONE UNA OPCIÓN--</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Confirmada">Confirmada</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
+                <span id="estadoReservaError" style="color: red;"></span>
+                
+                <label for="observaciones">Observaciones:</label>
+                <textarea name="observaciones" class="form-control" id="observaciones"></textarea>
+                
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'listado_reservas' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('frm_nueva_reserva').addEventListener('submit', function(event) {
+        let mensaje = "";  // Variable para almacenar los mensajes de error
+        let valid = true;   // Variable para verificar si el formulario es válido
+
+        const campista = document.getElementById('campista').value;
+        const fechaInicio = document.getElementById('fecha_inicio').value;
+        const fechaFin = document.getElementById('fecha_fin').value;
+        const numeroPersonas = document.getElementById('numero_personas').value;
+        const estadoReserva = document.getElementById('estado_reserva').value;
+
+        // Limpiar los mensajes de error previos
+        document.getElementById('campistaError').textContent = "";
+        document.getElementById('fechaInicioError').textContent = "";
+        document.getElementById('fechaFinError').textContent = "";
+        document.getElementById('numeroPersonasError').textContent = "";
+        document.getElementById('estadoReservaError').textContent = "";
+
+        // Comprobación de campos vacíos
+        if (!campista) {
+            document.getElementById('campistaError').textContent = "Llena este campo.";
+            valid = false;
+        }
+        if (!fechaInicio) {
+            document.getElementById('fechaInicioError').textContent = "Llena este campo.";
+            valid = false;
+        }
+        if (!fechaFin) {
+            document.getElementById('fechaFinError').textContent = "Llena este campo.";
+            valid = false;
+        }
+        if (!numeroPersonas) {
+            document.getElementById('numeroPersonasError').textContent = "Llena este campo.";
+            valid = false;
+        }
+        if (!estadoReserva) {
+            document.getElementById('estadoReservaError').textContent = "Llena este campo.";
+            valid = false;
+        }
+
+        // Validar fecha de inicio y fin
+        if (fechaInicio && fechaFin && new Date(fechaInicio) > new Date(fechaFin)) {
+            alert("La fecha de inicio no puede ser mayor que la fecha de fin.");
+            valid = false;
+        }
+
+        // Validar número de personas
+        if (numeroPersonas && numeroPersonas <= 0) {
+            alert("El número de personas debe ser mayor a 0.");
+            valid = false;
+        }
+
+        // Si el formulario no es válido, prevenir el envío
+        if (!valid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+{% endblock %}

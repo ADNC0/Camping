@@ -1,0 +1,107 @@
+{% extends "plantilla.html" %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'guardarCampista' %}" method="post" id="frm_nuevo_campista" novalidate>
+                {% csrf_token %}
+                
+                <label for="nombre_completo">Nombre Completo:</label>
+                <input type="text" name="nombre_completo" class="form-control" id="nombre_completo" 
+                       placeholder="Ingrese el nombre completo del campista" required>
+                <small id="nombreError" class="text-danger"></small>
+
+                <label for="correo_electronico">Correo Electrónico:</label>
+                <input type="email" name="correo_electronico" class="form-control" id="correo_electronico" 
+                       placeholder="Ingrese el correo electrónico del campista" required>
+                <small id="correoError" class="text-danger"></small>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="text" name="telefono" class="form-control" id="telefono" 
+                       placeholder="Ingrese el teléfono del campista" required>
+                <small id="telefonoError" class="text-danger"></small>
+
+                <label for="direccion">Dirección:</label>
+                <textarea name="direccion" class="form-control" id="direccion" 
+                          placeholder="Ingrese la dirección del campista" required></textarea>
+                <small id="direccionError" class="text-danger"></small>
+
+                <label for="fecha_registro">Fecha de Registro:</label>
+                <input type="date" name="fecha_registro" class="form-control" id="fecha_registro" required>
+                <small id="fechaError" class="text-danger"></small>
+
+                <br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'listado_campistas' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('frm_nuevo_campista').addEventListener('submit', function(event) {
+        let isValid = true;
+
+        // Limpiar mensajes previos
+        document.querySelectorAll('.text-danger').forEach(el => el.textContent = '');
+
+        // Validar Nombre Completo (solo letras)
+        const nombre = document.getElementById('nombre_completo').value;
+        const nombreRegex = /^[a-zA-Z\s]+$/;
+        if (!nombreRegex.test(nombre)) {
+            document.getElementById('nombreError').textContent = "El nombre solo debe contener letras.";
+            isValid = false;
+        } else if (!nombre) {
+            document.getElementById('nombreError').textContent = "Llena este campo.";
+            isValid = false;
+        }
+
+        // Validar Correo Electrónico
+        const correo = document.getElementById('correo_electronico').value;
+        if (!correo.includes('@')) {
+            document.getElementById('correoError').textContent = "El correo debe contener '@'.";
+            isValid = false;
+        } else if (!correo) {
+            document.getElementById('correoError').textContent = "Llena este campo.";
+            isValid = false;
+        }
+
+        // Validar Teléfono (solo números)
+        const telefono = document.getElementById('telefono').value;
+        const telefonoRegex = /^\d+$/;
+        if (!telefonoRegex.test(telefono)) {
+            document.getElementById('telefonoError').textContent = "El teléfono solo debe contener números.";
+            isValid = false;
+        } else if (!telefono) {
+            document.getElementById('telefonoError').textContent = "Llena este campo.";
+            isValid = false;
+        }
+
+        // Validar Dirección
+        const direccion = document.getElementById('direccion').value;
+        if (!direccion) {
+            document.getElementById('direccionError').textContent = "Llena este campo.";
+            isValid = false;
+        }
+
+        // Validar Fecha de Registro (año actual o posterior)
+        const fechaRegistro = document.getElementById('fecha_registro').value;
+        const fechaActual = new Date();
+        const fechaSeleccionada = new Date(fechaRegistro);
+        if (!fechaSeleccionada) {
+            document.getElementById('fechaError').textContent = "Llena este campo.";
+            isValid = false;
+        } else if (fechaSeleccionada.getFullYear() < fechaActual.getFullYear()) {
+            document.getElementById('fechaError').textContent = "La fecha debe ser del año actual o posterior.";
+            isValid = false;
+        }
+
+        // Si hay errores, prevenir el envío
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+{% endblock %}

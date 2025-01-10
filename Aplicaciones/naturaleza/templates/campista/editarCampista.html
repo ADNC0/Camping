@@ -1,0 +1,44 @@
+{% extends "plantilla.html" %}
+{% block body %}
+<h1>EDITAR CAMPISTA</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'procesoActualizarCampista' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ campistaEditar.id }}">
+
+                <label for="nombre_completo"><b>Nombre Completo:</b></label>
+                <input type="text" name="nombre_completo" class="form-control" 
+                       value="{{ campistaEditar.nombre_completo }}" id="nombre_completo" 
+                       placeholder="Ingrese el nombre completo del campista" required>
+
+                <label for="correo_electronico"><b>Correo Electrónico:</b></label>
+                <input type="email" name="correo_electronico" class="form-control" 
+                       value="{{ campistaEditar.correo_electronico }}" id="correo_electronico" 
+                       placeholder="Ingrese el correo electrónico del campista" required>
+
+                <label for="telefono"><b>Teléfono:</b></label>
+                <input type="text" name="telefono" class="form-control" 
+                       value="{{ campistaEditar.telefono }}" id="telefono" 
+                       placeholder="Ingrese el teléfono del campista" required>
+
+                <label for="direccion"><b>Dirección:</b></label>
+                <textarea name="direccion" class="form-control" id="direccion" 
+                          placeholder="Ingrese la dirección del campista (opcional)">{{ campistaEditar.direccion }}</textarea>
+
+                <label for="fecha_registro"><b>Fecha de Registro:</b></label>
+                <input type="date" name="fecha_registro" class="form-control" 
+                 id="fecha_registro"  value="{{ campistaEditar.fecha_registro|date:'Y-m-d' }}" required>
+                              
+                          
+                <br>
+                <button type="submit" class="btn btn-warning">Actualizar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'listado_campistas' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
