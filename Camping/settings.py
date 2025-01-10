@@ -31,7 +31,8 @@ SECRET_KEY = 'django-insecure-#0%1dubg+j(*&l(p#7r-kl131fl+exqqeuf5_k$%e+b&)sv=&5
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'camping-dfae.onrender.com').split(',')
+#ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'camping-dfae.onrender.com').split(',')
+ALLOWED_HOSTS = ['camping-dfae.onrender.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
