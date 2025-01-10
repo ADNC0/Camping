@@ -2,7 +2,7 @@ databases:
   - name: servidor
     plan: free
     databaseName: dbrecuperacion
-    user: Abraham
+    user: 
 
 services:
   - type: web
